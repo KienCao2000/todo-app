@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-const eventBus = new Vue()
-export default eventBus
+window.eventBus = new Vue()
 
 Vue.config.productionTip = false
 
