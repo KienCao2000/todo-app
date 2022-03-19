@@ -49,10 +49,10 @@
                 filter: 'all',
                 todos: [
                     {
-                        id: 1,
-                        title: 'Hello World',
-                        complete: false,
-                        editing: false,
+                        // id: 1,
+                        // title: 'Hello World',
+                        // complete: false,
+                        // editing: false,
                     },
                 ]
             }

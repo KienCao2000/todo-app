@@ -2,7 +2,7 @@
     <div>
         <h1 class="header_title">TODO</h1>
         <main>
-            <div class="add">
+            <div class="add" @keyup.enter="doneEdit">
                 <div class="cb_container">
                     <button class="add_btn" v-on:click="addTodo">+</button>
                 </div>

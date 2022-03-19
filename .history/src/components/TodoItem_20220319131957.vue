@@ -4,8 +4,8 @@
             <div class="cb_container" :class="{checked: complete}">
                 <input type="checkbox" class="active-item" v-model="complete" @change="doneEdit">
             </div>
-            <div class="todo-item-label" :class="{ completed: complete }">
-                {{ todo.title }}
+            <div v-if="!editing" class="todo-item-label" :class="{ completed: complete }">
+                {{ title }}
             </div>
             
             <!-- <input v-else type="text" class="todo-item-edit" v-model="title" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus> -->
