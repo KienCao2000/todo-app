@@ -2,7 +2,7 @@
     <div>
         <h1 class="header_title">TODO</h1>
         <main>
-            <div class="add" @keyup.enter="doneEdit">
+            <div class="add">
                 <div class="cb_container">
                     <button class="add_btn" v-on:click="addTodo">+</button>
                 </div>
@@ -45,7 +45,6 @@
                 newTodo: '',
                 idForTodo: 1,
                 beforeEditTitle: '',
-                editedTodo: null,
                 filter: 'all',
                 todos: [
                     {
@@ -61,7 +60,7 @@
             eventBus.$on('removedTodo', (index) => this.removeTodo(index))
             eventBus.$on('finishEdit', (data) => this.finishEdit(data))
             eventBus.$on('filterChange', (filter) => this.filter = filter)
-            eventBus.$on('editTodo', (index) => this.editTodo(index))
+            eventBus.$on('clearCompleted', () => this.ClearCompleted())
         },
         computed:{
             remaining(){
@@ -84,26 +83,17 @@
                 if(this.newTodo.trim().length == 0) {
                     return
                 }
-                if(this.editedTodo === null) {
-                    this.todos.push({
-                        id: this.idForTodo,
-                        title: this.newTodo,
-                        complete: false,
-                        editing: false,
-                    });
-                } else{
-                    this.todos[this.editedTodo].title = this.newTodo;
-                    this.editedTodo = null
-                }
+
+                this.todos.push({
+                    id: this.idForTodo,
+                    title: this.newTodo,
+                    complete: false,
+                    editing: false,
+                })
 
                 this.newTodo = ''
                 this.idForTodo++
             },
-            editTodo(index){
-                this.newTodo = this.todos[index].title;
-                this.editedTodo = index;
-            },
-            
             removeTodo(index) {
                 this.todos.splice(index, 1)
             },

@@ -2,12 +2,12 @@
     <div>
         <h1 class="header_title">TODO</h1>
         <main>
-            <div class="add" @keyup.enter="doneEdit">
+            <div class="add">
                 <div class="cb_container">
                     <button class="add_btn" v-on:click="addTodo">+</button>
                 </div>
                 <div class="txt_container">
-                    <input type="text" class="todo-input" placeholder="Create a new todo..." v-model="newTodo" @keyup.enter="addTodo">
+                    <input type="text" class="todo-input" placeholder="Create a new todo..." v-model="newTodo" @keyup.enter=" doneEdit()">
                 </div>
             </div>
             <ul>
@@ -103,7 +103,21 @@
                 this.newTodo = this.todos[index].title;
                 this.editedTodo = index;
             },
-            
+            doneEdit() {
+            if(this.title.trim()  == '') {
+                this.title = this.beforeEditTitle
+            }
+            this.editing = false;
+            this.$emit('finishEdit', {
+                index: this.index,
+                todo: {
+                    id: this.id,
+                    title: this.title,
+                    complete: this.complete,
+                    editing: this.editing,
+                }
+            })
+        },
             removeTodo(index) {
                 this.todos.splice(index, 1)
             },

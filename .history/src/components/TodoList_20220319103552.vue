@@ -2,7 +2,7 @@
     <div>
         <h1 class="header_title">TODO</h1>
         <main>
-            <div class="add" @keyup.enter="doneEdit">
+            <div class="add">
                 <div class="cb_container">
                     <button class="add_btn" v-on:click="addTodo">+</button>
                 </div>
@@ -45,7 +45,6 @@
                 newTodo: '',
                 idForTodo: 1,
                 beforeEditTitle: '',
-                editedTodo: null,
                 filter: 'all',
                 todos: [
                     {
@@ -61,7 +60,7 @@
             eventBus.$on('removedTodo', (index) => this.removeTodo(index))
             eventBus.$on('finishEdit', (data) => this.finishEdit(data))
             eventBus.$on('filterChange', (filter) => this.filter = filter)
-            eventBus.$on('editTodo', (index) => this.editTodo(index))
+            eventBus.$on('clearCompleted', () => this.ClearCompleted())
         },
         computed:{
             remaining(){
@@ -84,26 +83,17 @@
                 if(this.newTodo.trim().length == 0) {
                     return
                 }
-                if(this.editedTodo === null) {
-                    this.todos.push({
-                        id: this.idForTodo,
-                        title: this.newTodo,
-                        complete: false,
-                        editing: false,
-                    });
-                } else{
-                    this.todos[this.editedTodo].title = this.newTodo;
-                    this.editedTodo = null
-                }
+
+                this.todos.push({
+                    id: this.idForTodo,
+                    title: this.newTodo,
+                    complete: false,
+                    editing: false,
+                })
 
                 this.newTodo = ''
                 this.idForTodo++
             },
-            editTodo(index){
-                this.newTodo = this.todos[index].title;
-                this.editedTodo = index;
-            },
-            
             removeTodo(index) {
                 this.todos.splice(index, 1)
             },
@@ -124,7 +114,7 @@
     }
     .add{
         width: 100%;
-        background-color: #25273c;
+        background-color: #333;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -141,7 +131,7 @@
         justify-content: center;
         align-items: center;
 
-        &:hover .add_btn{
+        &:hover{
             background-color: #3a7bfd;
         }
     }
@@ -155,7 +145,6 @@
         justify-content: center;
         display: flex;
         border: 0;
-        border-radius: 50%;
     }
     .txt_container{
         flex: 1;
@@ -177,7 +166,7 @@
         align-items: center;
         justify-content: space-between;
         color: #fff;
-        background-color: #25273c;
+        background-color: #333;
         padding: 18px 24px;
         border-bottom: 1px solid rgb(78, 76, 76);
         border-radius: 5px;
@@ -208,11 +197,9 @@
         background-color: transparent;
         border: 1px solid rgb(80, 77, 77);
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         width: 100%;
-        height: 100%;
         margin-left: 12px;
-        border: 0;
         
         &:focus{
             outline: none;
@@ -240,6 +227,11 @@
         text-decoration: line-through;
         color: grey;
     }
+    /* .check{
+        background: url(https://hariramjp777.github.io/frontend-todo-app/assets/images/icon-check.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+    } */
     button{
         border: 0;
         background-color: transparent;
@@ -258,7 +250,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #25273c;
+        background-color: #333;
         padding: 18px 24px;
         color: rgb(85, 83, 83);
         border-radius: 5px; 
@@ -281,9 +273,16 @@
         pointer-events: none;
         border-radius: inherit;
     }
+    .active-item:checked .check{
+        background: url(https://hariramjp777.github.io/frontend-todo-app/assets/images/icon-check.svg), linear-gradient(45deg, #57ddff, #c058f3);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
     .checked{
         background: url(https://hariramjp777.github.io/frontend-todo-app/assets/images/icon-check.svg), linear-gradient(45deg, #57ddff, #c058f3);
         background-repeat: no-repeat;
         background-position: center;
+        width: 100%;
+        height: 100%;
     }
 </style>

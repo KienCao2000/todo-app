@@ -2,12 +2,11 @@
     <div class="todo-item">
         <div class="todo-item-left">
             <div class="cb_container" :class="{checked: complete}">
-                <input type="checkbox" class="active-item" v-model="complete" @change="doneEdit">
+                <input type="checkbox" class="active-item" v-model="complete" @change="doneEdit" >
             </div>
-            <div v-if="!editedTodo" class="todo-item-label" :class="{ completed: complete }">
+            <div v-if="!editing" class="todo-item-label" :class="{ completed: complete }">
                 {{ title }}
             </div>
-            
             <!-- <input v-else type="text" class="todo-item-edit" v-model="title" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus> -->
         </div>
         <div class="todo-item-right">

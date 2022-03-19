@@ -2,7 +2,7 @@
     <div>
         <h1 class="header_title">TODO</h1>
         <main>
-            <div class="add" @keyup.enter="doneEdit">
+            <div class="add">
                 <div class="cb_container">
                     <button class="add_btn" v-on:click="addTodo">+</button>
                 </div>
@@ -103,7 +103,6 @@
                 this.newTodo = this.todos[index].title;
                 this.editedTodo = index;
             },
-            
             removeTodo(index) {
                 this.todos.splice(index, 1)
             },

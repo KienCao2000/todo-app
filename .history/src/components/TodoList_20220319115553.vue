@@ -2,12 +2,12 @@
     <div>
         <h1 class="header_title">TODO</h1>
         <main>
-            <div class="add" @keyup.enter="doneEdit">
+            <div class="add">
                 <div class="cb_container">
                     <button class="add_btn" v-on:click="addTodo">+</button>
                 </div>
                 <div class="txt_container">
-                    <input type="text" class="todo-input" placeholder="Create a new todo..." v-model="newTodo" @keyup.enter="addTodo">
+                    <input type="text" class="todo-input" placeholder="Create a new todo..." v-model="newTodo" @keyup.enter="addTodo, doneEdit">
                 </div>
             </div>
             <ul>
@@ -103,7 +103,6 @@
                 this.newTodo = this.todos[index].title;
                 this.editedTodo = index;
             },
-            
             removeTodo(index) {
                 this.todos.splice(index, 1)
             },

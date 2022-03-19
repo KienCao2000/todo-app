@@ -7,6 +7,9 @@
             <div v-if="!editedTodo" class="todo-item-label" :class="{ completed: complete }">
                 {{ title }}
             </div>
+            <div v-else class="todo-item-label" :class="{ completed: complete }">
+                {{ title }}
+            </div>
             
             <!-- <input v-else type="text" class="todo-item-edit" v-model="title" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus> -->
         </div>

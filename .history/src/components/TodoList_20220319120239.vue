@@ -103,7 +103,21 @@
                 this.newTodo = this.todos[index].title;
                 this.editedTodo = index;
             },
-            
+            doneEdit() {
+            if(this.title.trim()  == '') {
+                this.title = this.beforeEditTitle
+            }
+            this.editing = false;
+            this.$emit('finishEdit', {
+                index: this.index,
+                todo: {
+                    id: this.id,
+                    title: this.title,
+                    complete: this.complete,
+                    editing: this.editing,
+                }
+            })
+        },
             removeTodo(index) {
                 this.todos.splice(index, 1)
             },
